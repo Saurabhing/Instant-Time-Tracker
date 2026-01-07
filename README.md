@@ -40,7 +40,7 @@ Everything Mode: Tracks total system uptime since launch.
 Custom Modes: Tracks cumulative time for that specific category across the entire day.
 
 🚀 Installation
-Go to the [suspicious link removed] tab (on the right).
+Go to the [https://github.com/Saurabhing/Instant-Time-Tracker/releases/tag/v2.0] tab (on the right).
 
 Download the latest InstantTimeTracker.exe.
 
@@ -55,7 +55,7 @@ Clone the repository:
 
 Bash
 
-git clone https://github.com/YourUsername/InstantTimeTracker.git
+git clone https://github.com/Saurabhing/Instant-Time-Tracker.git
 Open InstantTimeTracker.sln in Visual Studio.
 
 Press Ctrl + Shift + B to Build.
