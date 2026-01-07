@@ -1,0 +1,148 @@
+﻿<UserControl x:Class="InstantTimeTracker.DashboardView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:InstantTimeTracker">
+    <UserControl.Resources>
+        <local:PercentageConverter x:Key="PercentConverter"/>
+
+        <Style x:Key="CardStyle" TargetType="Border">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect BlurRadius="10" ShadowDepth="2" Direction="270" Color="#DDDDDD" Opacity="0.5"/>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="BigTimeText" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="24"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Foreground" Value="#2C3E50"/>
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+        </Style>
+
+        <Style x:Key="LabelText" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Foreground" Value="#7F8C8D"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Margin" Value="0,0,0,5"/>
+        </Style>
+    </UserControl.Resources>
+
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" Margin="0,0,0,20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel VerticalAlignment="Center">
+                <TextBlock Text="Daily Activity" FontSize="28" FontWeight="Light" Foreground="#2C3E50"/>
+                <TextBlock x:Name="txtDate" Text="..." FontSize="14" Foreground="#7F8C8D" Margin="2,5,0,0"/>
+            </StackPanel>
+
+            <StackPanel Grid.Column="1" Orientation="Horizontal">
+                <Border Style="{StaticResource CardStyle}" Padding="20,10" Width="160">
+                    <StackPanel VerticalAlignment="Center">
+                        <TextBlock Text="CURRENT SESSION" Style="{StaticResource LabelText}"/>
+                        <TextBlock x:Name="txtDashSession" Text="00:00:00" Style="{StaticResource BigTimeText}" Foreground="#2980B9"/>
+                    </StackPanel>
+                </Border>
+                <Border Style="{StaticResource CardStyle}" Padding="20,10" Width="160" Margin="15,0,0,0">
+                    <StackPanel VerticalAlignment="Center">
+                        <TextBlock Text="TOTAL TODAY" Style="{StaticResource LabelText}"/>
+                        <TextBlock x:Name="txtDashTotal" Text="00:00:00" Style="{StaticResource BigTimeText}" Foreground="#27AE60"/>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </Grid>
+
+        <Border Grid.Row="1" Style="{StaticResource CardStyle}" Padding="0">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Border BorderBrush="#EEEEEE" BorderThickness="0,0,0,1" Padding="20,15" Background="#FAFAFA" CornerRadius="8,8,0,0">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="50"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="150"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="ICON" FontWeight="Bold" Foreground="#95A5A6" FontSize="11" HorizontalAlignment="Center"/>
+                        <TextBlock Grid.Column="1" Text="APPLICATION NAME &amp; USAGE" FontWeight="Bold" Foreground="#95A5A6" FontSize="11" Margin="10,0,0,0"/>
+                        <TextBlock Grid.Column="2" Text="DURATION" FontWeight="Bold" Foreground="#95A5A6" FontSize="11" HorizontalAlignment="Right" Margin="0,0,20,0"/>
+                    </Grid>
+                </Border>
+
+                <DataGrid Grid.Row="1" x:Name="gridDashboard" AutoGenerateColumns="False" IsReadOnly="True"
+                          Background="White" RowBackground="White" AlternatingRowBackground="#FAFAFA"
+                          HeadersVisibility="None" BorderThickness="0" GridLinesVisibility="Horizontal"
+                          HorizontalGridLinesBrush="#F0F0F0" VerticalScrollBarVisibility="Auto">
+
+                    <DataGrid.Resources>
+                        <Style TargetType="DataGridRow">
+                            <Setter Property="Padding" Value="0,8"/>
+                            <Setter Property="BorderThickness" Value="0"/>
+                        </Style>
+                        <Style TargetType="DataGridCell">
+                            <Setter Property="BorderThickness" Value="0"/>
+                            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="DataGridCell">
+                                        <Border Padding="10,5" Background="{TemplateBinding Background}">
+                                            <ContentPresenter VerticalAlignment="Center" />
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </DataGrid.Resources>
+
+                    <DataGrid.Columns>
+                        <DataGridTemplateColumn Width="60">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Image Source="{Binding AppIcon}" Width="24" Height="24" HorizontalAlignment="Center" RenderOptions.BitmapScalingMode="HighQuality"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Width="*">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Grid VerticalAlignment="Center" Height="30">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+                                        <TextBlock Text="{Binding FriendlyName}" FontSize="14" Foreground="#34495E" VerticalAlignment="Center" Margin="5,0,0,4"/>
+                                        <Border Grid.Row="1" Height="4" CornerRadius="2" Background="#F0F2F5" HorizontalAlignment="Stretch" Margin="5,0,20,0">
+                                            <Border HorizontalAlignment="Left" CornerRadius="2" Background="#3498DB" Width="{Binding UsagePercentage, Converter={StaticResource PercentConverter}}"/>
+                                        </Border>
+                                    </Grid>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTextColumn Binding="{Binding DurationString}" Width="150" FontSize="14" Foreground="#2C3E50" FontWeight="SemiBold">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="HorizontalAlignment" Value="Right"/>
+                                    <Setter Property="Margin" Value="0,0,20,0"/>
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>
