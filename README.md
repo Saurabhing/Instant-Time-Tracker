@@ -86,6 +86,22 @@ Select a mode and click - (Trash Icon) to delete it.
 
 🤝 Contributing
 Contributions are welcome! If you have an idea for a feature (e.g., weekly graphs, pomodoro timer), feel free to fork the repo and submit a Pull Request.
+## ☕ Support
+
+If this tool helped you manage your time better, you can support future updates here:
+
+<a href="https://buymeacoffee.com/saurabhing">
+  <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" width="150" />
+</a>
+
+<br>
+<h3>🇮🇳 For Indian Users</h3>
+<p>You can support via UPI:</p>
+<code>saurabh9709@ptyes</code> 
+
+---
+
+**Made with ❤️ using C# & WPF.**
 
 📄 License
 This project is open-source and available under the Apache License 2.0. See the LICENSE file for more details.
